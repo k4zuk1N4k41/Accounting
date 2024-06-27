@@ -344,4 +344,3 @@ def logout():
 #-----------------------------------------------------
 if __name__ == '__main__':
     initialize_database()  # データベースを初期化
-    accounting.run(debug=True)

@@ -15,4 +15,8 @@ RUN pip install -r requirements.txt
 #sqliteのインストール
 RUN apt update && apt install -y sqlite3
 
+RUN python accounting.py
+
+CMD ["flask", "run"]
+
 
