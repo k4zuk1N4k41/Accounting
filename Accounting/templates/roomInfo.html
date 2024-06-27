@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/roomInfo.css')}}">
+    <title>記録画面</title>
+</head>
+<body>
+    <header>
+        <div>会計情報</div>
+        <div class="header-right">
+            <span>{{ username }}</span>
+            <form action="/logout" method="POST" class="inline-form">
+                <input type="submit" name="btn" value="ログアウト" />
+            </form>
+            <form action="/roomInfo" method="POST" class="inline-form">
+                <input type="submit" name="btn" value="戻る" />
+                <input type="hidden" name="username" value={{ username }} />
+            </form>
+        </div>
+    </header>
+    <h2>現在の会計情報</h2>
+    <table border="1">
+        <tr>
+            <th>ユーザー名</th>
+            <th>現在の会計情報</th>
+        </tr>
+        {% for user_info in user_infos %}
+        <tr>
+            <td>{{ user_info.username }}</td>
+            <td>{{ user_info.money }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <form action="/roomInfo" method="POST">
+        <input type="hidden" name="username" value={{ username }} />
+        <input type="hidden" name="roomname" value={{ roomname }}>
+        <input type="submit" name="btn" value="追加" />
+        <input type="submit" name="btn" value="返済" />
+        <input type="submit" name="btn" value="リセット" />
+        <input type="submit" name="btn" value="更新" />
+    </form>
+</body>
+</html>

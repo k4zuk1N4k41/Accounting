@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>確認画面</title>
+</head>
+<body>
+    <form action="/logout" method="POST">
+        <input type="submit" name="btn" value="ログアウト" />
+    </form>
+    <h2>返済情報の確認</h2>
+    <h3>誰がお金を返済しますか？</h3>
+    {{ give_money }}<br/>
+    <h3>いくら返済しますか？</h3>
+    合計金額：{{ total }}円<br/><br/>
+    <form action="/confirmation" method="POST">
+        <input type="hidden" name="username" value={{ username }} />
+        <input type="hidden" name="roomname" value={{ roomname }} />
+        <input type="hidden" name="give_money" value={{ give_money }} />
+        <input type="hidden" name="total" value={{ total }} />
+        <input type="submit" name="btn" value="返済確定" />
+        <input type="submit" name="btn" value="返済画面へ" />
+        
+    </form>
+</body>
+</html>

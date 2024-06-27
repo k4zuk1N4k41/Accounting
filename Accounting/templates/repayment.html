@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/accounting.css')}}">
+    <title>会計情報の追加</title>
+</head>
+<body>
+    <header>
+        <div>会計情報の追加</div>
+        <div class="header-right">
+            <span>{{ username }}</span>
+            <form action="/logout" method="POST" class="inline-form">
+                <input type="submit" name="btn" value="ログアウト" />
+            </form>
+            <form action="/roomInfo" method="POST" class="inline-form">
+                <input type="submit" name="btn" value="戻る" />
+                <input type="hidden" name="username" value="{{ username }}" />
+            </form>
+        </div>
+    </header>
+
+    <h2>現在の会計情報</h2>
+    <table>
+        <tr>
+            <th>ユーザー名</th>
+            <th>現在の会計情報</th>
+        </tr>
+        {% for user_info in user_infos %}
+        <tr>
+            <td>{{ user_info.username }}</td>
+            <td>{{ user_info.money }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h2>会計情報の追加</h2>
+    <form action="/confirmation" method="POST">
+        <label>誰がお金を支払いましたか？</label>
+        {% for user_info in user_infos %}
+        <label class="radio-label">
+            <input type="radio" name="give_money" value="{{ user_info.username }}">
+            {{ user_info.username }}
+        </label>
+        {% endfor %}
+
+        <label>どれだけ払いましたか？</label>
+        <input type="number" name="total" value="0" required>
+
+        <label>何割支払う予定ですか？</label>
+        <input type="number" name="percentage" value="50" min="0" max="100" required>
+
+        <label>あなたの分の支払い済額はありますか？（会計時期）</label>
+        <input type="number" name="paid_amount" value="0" required>
+
+        <label>相手の分の支払い済額はありますか？（会計時期）</label>
+        <input type="number" name="other_paid_amount" value="0" required>
+
+        <input type="hidden" name="username" value="{{ username }}" />
+        <input type="hidden" name="roomname" value="{{ roomname }}" />
+        <input type="submit" name="btn" value="追加" />
+    </form>
+</body>
+</html>

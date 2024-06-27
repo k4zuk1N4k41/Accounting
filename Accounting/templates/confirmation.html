@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>確認画面</title>
+</head>
+<body>
+    <form action="/logout" method="POST">
+        <input type="submit" name="btn" value="ログアウト" />
+    </form>
+    <h2>会計情報の追加</h2>
+    <h3>誰がお金を支払いましたか？</h3>
+        {{ give_money  }}
+        <h3>どれだけ払いましたか？</h3>
+        合計金額：{{ total  }}円
+        <h3>あなたは何割支払う予定ですか？</h3>
+        {{ ratio  }}％
+        <h3>あなたのみの支払い商品はありますか？（合計金額）</h3>
+         合計金額：{{ myself_total  }}円
+        <h3>相手のみの支払い商品はありますか？（合計金額）</h3>
+         合計金額：{{ partner_total  }}円
+    <form action="/confirmation" method="POST">
+        <input type="hidden" name="username" value={{ username }} />
+        <input type="hidden" name="roomname" value={{ roomname }} />
+        <input type="hidden" name="give_money" value={{ give_money }} />
+        <input type="hidden" name="total" value={{ total }} />
+        <input type="hidden" name="ratio" value={{ ratio }} />
+        <input type="hidden" name="myself_total" value={{ myself_total }} />
+        <input type="hidden" name="partner_total" value={{ partner_total }} />
+        <input type="submit" name="btn" value="追加確定" />
+        <input type="submit" name="btn" value="追加画面へ" />
+        
+    </form>
+</body>
+</html>

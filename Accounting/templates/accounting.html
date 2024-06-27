@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/accounting.css')}}">
+    <title>追加画面</title>
+</head>
+<body>
+    <header>
+        <div>会計情報の追加</div>
+        <div class="header-right">
+            <span>{{ username }}</span>
+            <form action="/logout" method="POST" class="inline-form">
+                <input type="submit" name="btn" value="ログアウト" />
+            </form>
+            <form action="/roomInfo" method="POST" class="inline-form">
+                <input type="submit" name="btn" value="戻る" />
+                <input type="hidden" name="username" value="{{ username }}" />
+            </form>
+        </div>
+    </header>
+    <h2>現在の会計情報</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ユーザー名</th>
+                <th>現在の会計情報</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user_info in user_infos %}
+            <tr>
+                <td>{{ user_info.username }}</td>
+                <td>{{ user_info.money }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <h2>会計情報の追加</h2>
+    <form action="/confirmation" method="POST">
+        <h3>誰がお金を支払いましたか？</h3>
+        {% for user_info in user_infos %}
+        <label class="radio-label">
+            <input type="radio" name="give_money" value="{{ user_info.username }}">
+            {{ user_info.username }}
+        </label><br/>
+        {% endfor %}
+        <h3>どれだけ払いましたか？</h3>
+        <label>合計金額：</label>
+        <input type="number" name="total" value="0" required> 円<br/>
+        <h3>何割支払う予定ですか？</h3>
+        <label>支払比率：</label>
+        <input type="number" name="ratio" step="10" value="50" min="0" max="100" required> %<br/>
+        <h3>あなたのみの支払い商品はありますか？（合計金額）</h3>
+        <label>合計金額：</label>
+        <input type="number" name="myself_total" value="0" required> 円<br/>
+        <h3>相手のみの支払い商品はありますか？（合計金額）</h3>
+        <label>合計金額：</label>
+        <input type="number" name="partner_total" value="0" required> 円<br/><br/>
+        <input type="hidden" name="username" value="{{ username }}" />
+        <input type="hidden" name="roomname" value="{{ roomname }}" />
+        <input type="submit" name="btn" value="追加" />
+    </form>
+</body>
+</html>

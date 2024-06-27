@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <link rel="stylesheet" href="{{url_for('static', filename='css/login.css')}}">
+        <title>認証画面</title>
+    </head>
+    <body>
+        <h1>会計計算アプリ</h1><br/><br/>
+        {% if msg != null %}
+        <h2>{{ msg }}</h2>
+        {% else %}
+        <h2>情報を入力してください</h2>
+        {% endif %}
+        <form action="/" method="POST">
+            <label>ユーザー名（30文字以内）</label><br/>
+            <input type="text" name="username" size="20"/><br/>
+            <label>パスワード（12文字以内）</label><br/>
+            <input type="password" name="password" size="20"/><br/><br/>
+            <input type="submit" name="btn" value="登録" />
+            <input type="submit" name="btn" value="ログイン" />
+        </form>
+    </body>
+</html>

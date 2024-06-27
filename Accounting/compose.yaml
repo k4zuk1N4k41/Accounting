@@ -1,0 +1,11 @@
+services:
+  python:
+    build: .
+    tty: true
+    container_name: my_python
+    volumes:
+      - db-data:/var/lib/mysql
+    ports:
+      - "5000:5000"
+volumes:
+  db-data:
